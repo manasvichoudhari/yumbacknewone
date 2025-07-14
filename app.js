@@ -5,11 +5,26 @@ require('dotenv').config();
 
 const app = express();
 
+const allowedOrigins = [
+  'http://localhost:5173',          // local dev
+  'https://yumfront-1.onrender.com' //  deployed frontend
+];
+
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: (origin, cb) => {
+    // Postman / curl jaise non‑browser tools ke liye 'origin' undefined hota hai
+    if (!origin || allowedOrigins.includes(origin)) {
+      return cb(null, true);
+    }
+    return cb(new Error('Not allowed by CORS'));
+  },
   credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],   // <-- JWT header ke liye zaroori
+  exposedHeaders: ['Authorization']                   // agar client ko header padhni ho
 }));
-app.options('*', cors());
+app.options('*', cors());   // pre‑flight sab paths par serve hoga
+
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 

@@ -1,9 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const cartController = require('../Controllers/CartController');
+const { submitContact } = require('../Controllers/ContactController');
 
-router.get('/:userId', cartController.getCart);
-router.post('/', cartController.addToCart);
-router.delete('/:userId', cartController.clearCart);
+// POST route for contact form submission
+router.post('/', submitContact);
 
 module.exports = router;
