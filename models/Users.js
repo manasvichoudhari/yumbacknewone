@@ -10,7 +10,13 @@ const userSchema = new mongoose.Schema({
     pincode: String,
     city: String,
     resetPasswordToken: String,
-    resetPasswordExpire: Date
-}, { timestamps: true });
+    resetPasswordExpire: Date,
+role: {
+        type: String,
+        enum: ['user', 'admin'],
+        default: 'user'
+    }
+},
+{ timestamps: true });
 
 module.exports = mongoose.model('Users', userSchema);
