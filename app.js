@@ -41,4 +41,9 @@ app.use('/api/users', userRoutes);
 app.use('/api/contact', ContactRoutes);
 app.use('/api/admin', adminRoutes);
 
+//  app.js ke bilkul end mein (module.exports se *pehle*), सिर्फ debug के लिए:
+const listEndpoints = require('express-list-endpoints');
+console.log('🛣️  Loaded Routes:\n', listEndpoints(app));
+
+
 module.exports = app;
