@@ -3,7 +3,7 @@ const router = express.Router();
 const User = require('../models/Users');
 const Order = require('../models/Orders');
 const { protect } = require('../middleware/protect');
-const { isAdmin } = require('../middleware/isAdmin');
+const isAdmin  = require('../middleware/isAdmin');
 
 //  GET all users
 router.get('/users', isAdmin, async (req, res) => {
